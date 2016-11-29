@@ -20,7 +20,7 @@ var app = express();
 
 var cart = [];
 
-router.get('/reader/:id', function(req,res){
+router.post('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
 });
 
