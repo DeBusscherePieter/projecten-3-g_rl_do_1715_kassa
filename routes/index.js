@@ -6,6 +6,7 @@ var il = new InfiniteLoop();
 
 
 router.get('/', function(req, res, next) {
+  user = "";
   dbjs.reader.remove({}, function(err,doc){
     console.log(doc);
   });
@@ -19,6 +20,7 @@ var dbjs = mongojs('mongodb://admin:admin@ds013619.mlab.com:13619/hogentresto',c
 var app = express();
 
 var cart = [];
+var user = "";
 
 router.post('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
