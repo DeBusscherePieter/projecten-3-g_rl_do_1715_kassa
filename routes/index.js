@@ -23,7 +23,7 @@ var cart = [];
 var user = "";
 var email = "";
 
-router.post('/reader/:id', function(req,res){
+router.get('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
 });
 
@@ -54,8 +54,12 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
-router.post('/block/:id', function(req,res,next){
-    dbjs.efpluser.update({'id': req.params.id}, {$set : {'blocked': true}});
+router.post('/block/:mail', function(req,res,next){
+    var id = "";
+    dbjs.efpluser.findOne({'mail':mail}, function(err,doc){
+       id = doc.id; 
+    });
+    dbjs.efpluser.update({'id': id}, {$set : {'blocked': true}});
 });
 
 router.get('/kassa/:id', function(req, res, next){
@@ -65,7 +69,10 @@ router.get('/kassa/:id', function(req, res, next){
         // we visited all docs in the collection
     } else {
         if(doc.blocked){
-            res.render('/', {message: "Kaart is geblokkerd!"});
+            dbjs.reader.remove({}, function(err,doc){
+                console.log(doc);
+              });
+            res.render('index', {message: "Kaart is geblokkerd!"});
         } else {
             user = req.params.id;
             email = doc.mail;
