@@ -54,11 +54,12 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
-router.get('/block/:mail', function(req,res,next){
+router.get('/block/:m', function(req,res){
     var id = "";
-    dbjs.efpluser.findOne({'mail':req.params.mail}, function(err,doc){
+    dbjs.efpluser.findOne({'mail':req.params.m}, function(err,doc){
        id = doc.id; 
     });
+    console.log(id);
     dbjs.efpluser.update({'id': id}, {$set : {'blocked': true}});
 });
 
