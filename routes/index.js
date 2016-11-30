@@ -54,7 +54,7 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
-router.post('/block/:mail', function(req,res,next){
+router.get('/block/:mail', function(req,res,next){
     var id = "";
     dbjs.efpluser.findOne({'mail':mail}, function(err,doc){
        id = doc.id; 
