@@ -61,7 +61,6 @@ router.get('/block/:hogentid', function(req,res){
        hogentid = doc.hogentid; 
         console.log(doc);
     });
-    console.log(id);
     dbjs.efpluser.update({'hogentid': hogentid}, {$set : {'blocked': true}});
 });
 
