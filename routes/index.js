@@ -69,10 +69,10 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
-router.get('/block/:id', function(req,res){
-    
+router.get('/block/:before/:after', function(req,res){
+    var m = before + '@' + after;
     dbjs.efpluser.findAndModify({
-    query: { hogentid: req.params.id },
+    query: { mail: m },
     update: { $set: { blocked: true } },
     new: false
     }, function (err, doc, lastErrorObject) {
