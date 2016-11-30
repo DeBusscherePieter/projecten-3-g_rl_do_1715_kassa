@@ -54,15 +54,23 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
+router.post('/block/:id', function(req,res,next){
+    dbjs.efpluser.update({'id': req.params.id}, {$set : {'blocked': true}});
+});
+
 router.get('/kassa/:id', function(req, res, next){
   cart = [];
   dbjs.efpluser.findOne({'id' : req.params.id},function (err, doc) {
     if (!doc) {
         // we visited all docs in the collection
     } else {
-        user = req.params.id;
-        email = doc.mail;
-        res.render('kassa', {id: req.params.id, name: doc.name});
+        if(doc.blocked){
+            res.render('/', {message: "Kaart is geblokkerd!"});
+        } else {
+            user = req.params.id;
+            email = doc.mail;
+            res.render('kassa', {id: req.params.id, name: doc.name});
+        }
     }
 
   });
