@@ -19,9 +19,21 @@ var mongojs = require('mongojs');
 var dbjs = mongojs('mongodb://admin:admin@ds013619.mlab.com:13619/hogentresto',collections);
 var app = express();
 
-var cart = [];
+var rekeningLijnen = [];
 var user = "";
 var email = "";
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1;
+
+var yyyy = today.getFullYear();
+if(dd<10){
+    dd='0'+dd
+} 
+if(mm<10){
+    mm='0'+mm
+} 
+var today = dd+'/'+mm+'/'+yyyy;
 
 router.get('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
@@ -29,8 +41,9 @@ router.get('/reader/:id', function(req,res){
 });
 
 router.post('/addcart', function(req,res){
-  cart.push({title: req.body.title, mealname: req.body.mealname, price: req.body.price, date: req.body.date});
-  console.log(cart[0].title);
+    rekeningLijnen.push({
+        title: req.body.title, mealname: req.body.mealname, price: req.body.price
+    });   
 });
 
 router.get('/refresh', function(req,res){
@@ -46,9 +59,10 @@ router.get('/refresh', function(req,res){
 });
 
 router.post('/efpl', function(req, res){
-  for(i=0; i < cart.length; i++){
-    dbjs.efpl.insert({'id' : user, 'mail':email, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
-  }
+  //for(i=0; i < cart.length; i++){
+    //dbjs.efpl.insert({'id' : user, 'mail':email, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
+  //}
+  dbjs.efpl.insert({'rekeningLijnen' : rekeningLijnen, 'id' : user, 'mail':email, 'date':today});
   dbjs.reader.remove({}, function(err,doc){
     console.log(doc);
   });
