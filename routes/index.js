@@ -56,7 +56,7 @@ router.post('/efpl', function(req, res){
 
 router.get('/block/:mail', function(req,res,next){
     var id = "";
-    dbjs.efpluser.findOne({'mail':mail}, function(err,doc){
+    dbjs.efpluser.findOne({'mail':req.params.mail}, function(err,doc){
        id = doc.id; 
     });
     dbjs.efpluser.update({'id': id}, {$set : {'blocked': true}});
