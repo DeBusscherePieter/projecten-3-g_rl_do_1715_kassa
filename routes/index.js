@@ -56,11 +56,8 @@ router.post('/efpl', function(req, res){
 });
 
 router.get('/block/:hogentid', function(req,res){
-    var hogent = "";
-    dbjs.efpluser.findOne({'hogentid':req.params.hogentid}, function(err,doc){
-       hogent = doc.hogentid; 
-    });
-    dbjs.efpluser.update({'hogentid': hogent}, {$set : {'blocked': true}});
+    dbjs.efpluser.update({'hogentid': req.params.hogentid}, {$set : {'blocked': true}});
+    res.send("pablo says hoho");
 });
 
 router.get('/kassa/:id', function(req, res, next){
