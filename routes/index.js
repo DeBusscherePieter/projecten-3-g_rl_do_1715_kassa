@@ -55,14 +55,14 @@ router.post('/efpl', function(req, res){
   res.redirect('/');
 });
 
-router.get('/block/:m', function(req,res){
-    var id = "";
-    dbjs.efpluser.findOne({'mail':req.params.m}, function(err,doc){
-       id = doc.id; 
+router.get('/block/:hogentid', function(req,res){
+    var hogentid = "";
+    dbjs.efpluser.findOne({'hogentid':req.params.hogentid}, function(err,doc){
+       hogentid = doc.hogentid; 
         console.log(doc);
     });
     console.log(id);
-    dbjs.efpluser.update({'id': id}, {$set : {'blocked': true}});
+    dbjs.efpluser.update({'hogentid': hogentid}, {$set : {'blocked': true}});
 });
 
 router.get('/kassa/:id', function(req, res, next){
