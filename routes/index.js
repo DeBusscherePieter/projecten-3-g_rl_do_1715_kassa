@@ -46,7 +46,7 @@ router.get('/refresh', function(req,res){
 
 router.post('/efpl', function(req, res){
   for(i=0; i < cart.length; i++){
-    dbjs.efpl.insert({'id' : user, 'mail':mail, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
+    dbjs.efpl.insert({'id' : user, 'mail':email, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
   }
   dbjs.reader.remove({}, function(err,doc){
     console.log(doc);
