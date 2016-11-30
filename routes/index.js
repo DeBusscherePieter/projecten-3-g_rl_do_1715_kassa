@@ -25,6 +25,7 @@ var email = "";
 
 router.get('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
+    res.send('Pablo says hello');
 });
 
 router.post('/addcart', function(req,res){
