@@ -70,7 +70,7 @@ router.post('/efpl', function(req, res){
 });
 
 router.get('/block/:before/:after', function(req,res){
-    var m = before + '@' + after;
+    var m = req.params.before + '@' + req.params.after;
     dbjs.efpluser.findAndModify({
     query: { mail: m },
     update: { $set: { blocked: true } },
