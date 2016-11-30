@@ -21,6 +21,7 @@ var app = express();
 
 var cart = [];
 var user = "";
+var email = "";
 
 router.post('/reader/:id', function(req,res){
   dbjs.reader.insert({'id': req.params.id});
@@ -45,7 +46,7 @@ router.get('/refresh', function(req,res){
 
 router.post('/efpl', function(req, res){
   for(i=0; i < cart.length; i++){
-    dbjs.efpl.insert({'id' : user, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
+    dbjs.efpl.insert({'id' : user, 'mail':mail, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
   }
   dbjs.reader.remove({}, function(err,doc){
     console.log(doc);
@@ -60,6 +61,7 @@ router.get('/kassa/:id', function(req, res, next){
         // we visited all docs in the collection
     } else {
         user = req.params.id;
+        email = doc.mail;
         res.render('kassa', {id: req.params.id, name: doc.name});
     }
 
