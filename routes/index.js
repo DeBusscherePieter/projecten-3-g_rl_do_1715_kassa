@@ -2,7 +2,12 @@ var express = require('express');
 var router = express.Router();
 var InfiniteLoop = require('infinite-loop');
 var il = new InfiniteLoop();
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 /* GET home page. */
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(cookieParser());
 
 
 router.get('/', function(req, res, next) {
@@ -25,7 +30,6 @@ var email = "";
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1;
-
 var yyyy = today.getFullYear();
 if(dd<10){
     dd='0'+dd
@@ -76,7 +80,7 @@ router.get('/block/:before/:after', function(req,res){
     update: { $set: { blocked: true } },
     new: false
     }, function (err, doc, lastErrorObject) {
-    res.send("pablo says hoho"); 
+    res.json(doc); 
 });
     
 });
