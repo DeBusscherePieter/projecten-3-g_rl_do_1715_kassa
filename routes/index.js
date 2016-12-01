@@ -81,7 +81,7 @@ router.get('/block/:before/:after', function(req,res){
     update: { $set: { blocked: true } },
     new: false
     }, function (err, doc, lastErrorObject) {
-    res.json(doc); 
+    res.json('Pablo says hello!'); 
 });
     
 });
