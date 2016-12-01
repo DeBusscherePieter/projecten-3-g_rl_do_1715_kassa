@@ -77,6 +77,7 @@ router.get('/block/:before/:after', function(req,res){
     var m = req.params.before + '@' + req.params.after;
     dbjs.efpluser.findAndModify({
     query: { mail: m },
+        fields: {_id: 0},
     update: { $set: { blocked: true } },
     new: false
     }, function (err, doc, lastErrorObject) {
