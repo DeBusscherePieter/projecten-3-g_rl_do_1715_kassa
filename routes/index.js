@@ -96,7 +96,7 @@ router.get('/kassa/:id', function(req, res, next){
             dbjs.reader.remove({}, function(err,doc){
                 console.log(doc);
               });
-            res.render('index', {message: "Kaart is geblokkerd!"});
+            res.render('index', {message: "Kaart is geblokkeerd!"});
         } else {
             user = req.params.id;
             email = doc.mail;
