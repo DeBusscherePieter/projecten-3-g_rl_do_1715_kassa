@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<title>Mijn Resto</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -8,7 +8,7 @@
       rel="stylesheet">
 	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 </head>
-<body>
+<body ng-controller="AppCtrl">
 
   <!-- Event card -->
 <style>
@@ -46,7 +46,7 @@
 		<main class="mdl-layout__content">
 			<div class="page-content">
         <h3>ID: {{id}}</h3>
-        <h4 style="display:inline-block">Naam: {{name}} </h4>
+        <h4 style="display:inline-block; text-align: center;">Naam: {{name}} </h4>
         <div align="right">
         <form method="post" action="/efpl">
           <input type="hidden" name="user" value={{id}}>
@@ -55,7 +55,7 @@
         </button>
       </form>
       </div>
-        <div class="mdl-grid">
+        <!--<div class="mdl-grid">
           <div class="mdl-cell mdl-cell--3-col">
             <div class="demo-card-event mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title mdl-card--expand">
@@ -217,18 +217,52 @@
         </div>
       </div>
     </main>
-</div>
+</div> -->
 
-    <script>
-      function count(mealnumber){
-        var counter = parseInt(document.getElementById(mealnumber).innerHTML) + 1;
-        document.getElementById(mealnumber).innerHTML = counter;
-      }
-    </script>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Items:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="usermeal in userList">
+          <td class="mdl-data-table__cell--non-numeric" ng-bind="usermeal.titel"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--3-col" ng-repeat="maaltijd in maaltijden">
+          <div class="demo-card-event mdl-card mdl-shadow--2dp" style="background-color: #8e001c">
+              <div class="mdl-card__title mdl-card--expand">
+                <h4>
+                  <span ng-bind="maaltijd.titel"></span><br>
+                  <span ng-bind="maaltijd.beschrijving"></span><br> </br> </br>
+                  € <span ng-bind="maaltijd.prijs"></span>
+                </h4>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <form method="post" action="/addcart">
+                  <input type="hidden" name="title" ng-value="maaltijd.titel">
+                  <input type="hidden" name="mealname" ng-value="maaltijd.beschrijving">
+                  <input type="hidden" name="price" ng-value="maaltijd.prijs">
+                  <input type="hidden" name="date" ng-value="maaltijd.prijs">
+                  <button ng-click="addMaaltijd(maaltijd.beschrijving, maaltijd._id)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" type="submit" style="display: inline-block">
+                    <i class="material-icons">add</i>
+                  </button>
+                </form>
+                <div class="mdl-layout-spacer"></div>
+              </div>
+            </div>
+        </div>
+    </div>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	  <script
 	  src="https://code.jquery.com/jquery-2.2.4.min.js"
 	  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	  crossorigin="anonymous"></script>
+    	  <script src="../../../../../../../../../../../../controllers/controller.js"></script>
 </body>
 </html>

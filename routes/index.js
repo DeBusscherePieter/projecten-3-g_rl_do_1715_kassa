@@ -67,6 +67,7 @@ router.post('/efpl', function(req, res){
     //dbjs.efpl.insert({'id' : user, 'mail':email, 'meal': cart[i].mealname, 'title': cart[i].title, 'price': cart[i].price, 'date': cart[i].date});
   //}
   dbjs.efpl.insert({'rekeningLijnen' : rekeningLijnen, 'id' : user, 'mail':email, 'date':today});
+  rekeningLijnen = [];
   dbjs.reader.remove({}, function(err,doc){
     console.log(doc);
   });
